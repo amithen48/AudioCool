@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AudioCool</title>
+    <script src="JS/paper-full.js"></script>
+    <script src="JS/howler.js"></script>
+    <link rel="stylesheet" href="CSS/AudioCool.css">
+    <script type="text/paperscript" canvas="myCanvas">
+
+        colors = [];
+        for (var i = 0 ; i < 26 ; i++) {
+            colors[i] = "rgb(" + Math.random() * 256 + ", " + Math.random() * 256 + ", " + Math.random() * 256 + ")";
+        }
+
+        var keyData = {
+            q: {
+                sound: new Howl({
+                    src: ['sounds/bubbles.mp3']
+                }),
+                color: colors[0]
+            },
+            w: {
+                sound: new Howl({
+                    src: ['sounds/clay.mp3']
+                }),
+                color: colors[1]
+            },
+            e: {
+                sound: new Howl({
+                    src: ['sounds/confetti.mp3']
+                }),
+                color: colors[2]
+            },
+            r: {
+                sound: new Howl({
+                    src: ['sounds/corona.mp3']
+                }),
+                color: colors[3]
+            },
+            t: {
+                sound: new Howl({
+                    src: ['sounds/dotted-spiral.mp3']
+                }),
+                color: colors[4]
+            },
+            y: {
+                sound: new Howl({
+                    src: ['sounds/flash-1.mp3']
+                }),
+                color: colors[5]
+            },
+            u: {
+                sound: new Howl({
+                    src: ['sounds/flash-2.mp3']
+                }),
+                color: colors[6]
+            },
+            i: {
+                sound: new Howl({
+                    src: ['sounds/flash-3.mp3']
+                }),
+                color: colors[7]
+            },
+            o: {
+                sound: new Howl({
+                    src: ['sounds/glimmer.mp3']
+                }),
+                color: colors[8]
+            },
+            p: {
+                sound: new Howl({
+                    src: ['sounds/moon.mp3']
+                }),
+                color: colors[9]
+            },
+            a: {
+                sound: new Howl({
+                    src: ['sounds/pinwheel.mp3']
+                }),
+                color: colors[10]
+            },
+            s: {
+                sound: new Howl({
+                    src: ['sounds/piston-1.mp3']
+                }),
+                color: colors[11]
+            },
+            d: {
+                sound: new Howl({
+                    src: ['sounds/piston-2.mp3']
+                }),
+                color: colors[12]
+            },
+            f: {
+                sound: new Howl({
+                    src: ['sounds/prism-1.mp3']
+                }),
+                color: colors[13]
+            },
+            g: {
+                sound: new Howl({
+                    src: ['sounds/prism-2.mp3']
+                }),
+                color: colors[14]
+            },
+            h: {
+                sound: new Howl({
+                    src: ['sounds/prism-3.mp3']
+                }),
+                color: colors[15]
+            },
+            j: {
+                sound: new Howl({
+                    src: ['sounds/splits.mp3']
+                }),
+                color: colors[16]
+            },
+            k: {
+                sound: new Howl({
+                    src: ['sounds/squiggle.mp3']
+                }),
+                color: colors[17]
+            },
+            l: {
+                sound: new Howl({
+                    src: ['sounds/strike.mp3']
+                }),
+                color: colors[18]
+            },
+            z: {
+                sound: new Howl({
+                    src: ['sounds/suspension.mp3']
+                }),
+                color: colors[19]
+            },
+            x: {
+                sound: new Howl({
+                    src: ['sounds/timer.mp3']
+                }),
+                color: colors[20]
+            },
+            c: {
+                sound: new Howl({
+                    src: ['sounds/ufo.mp3']
+                }),
+                color: colors[21]
+            },
+            v: {
+                sound: new Howl({
+                    src: ['sounds/veil.mp3']
+                }),
+                color: colors[22]
+            },
+            b: {
+                sound: new Howl({
+                    src: ['sounds/wipe.mp3']
+                }),
+                color: colors[23]
+            },
+            n: {
+                sound: new Howl({
+                    src: ['sounds/zig-zag.mp3']
+                }),
+                color: colors[24]
+            },
+            m: {
+                sound: new Howl({
+                    src: ['sounds/moon.mp3']
+                }),
+                color: colors[25]
+            }
+        }
+
+        var circles = [];
+
+        function onKeyDown(event) {// When a key is pressed, set the content of the text item:
+            if (keyData[event.key]) {
+                var maxPoint = new Point(view.size.width, view.size.height);
+                var randomPoint = Point.random();
+                var point = maxPoint * randomPoint;
+                var newCircle = new Path.Circle(point, 700);
+                newCircle.fillColor = keyData[event.key].color;
+                keyData[event.key].sound.play();
+                circles.push(newCircle);
+            }
+        }
+
+        function onFrame(event) {
+            for (var i = 0; i <circles.length; i++) {
+                circles[i].fillColor.hue += 1;
+                circles[i].scale(0.93);
+                if(circles[i].area < 1) {
+                    circles[i].remove(); // remove the circle from the canvas
+                    circles.splice(i, 1); // remove the circle from the array
+                }
+            }
+        }
+
+    </script>
+</head>
+<body>
+
+<canvas id = "myCanvas" resize></canvas>
+
+</body>
+</html>
